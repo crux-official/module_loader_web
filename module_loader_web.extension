@@ -1,0 +1,20 @@
+# A DRIVER package - the web (Emscripten) module loader. The app is a side
+# module loaded at run time by the main module's dylink runtime through
+# dlopen/dlsym/dlclose (the same names as POSIX; Emscripten's backend wires
+# the shared memory + function table across the boundary, so the crux
+# import-free dialect ports directly - the both-direction dispatch was
+# confirmed by the Phase 0 spike, .scratch/phase0). It is the web platform's
+# module_loader choice for a dynamic cell; a static web cell takes the
+# honest-absence substitution (module_loader_none) instead.
+format_version = 1
+name   = "module_loader_web"
+kind   = "implementation"
+api    = "module_loader"
+supported_platforms = ["web"]
+version        = "1.0.0"
+implements_api = "2.0.0"
+requires = [
+  { package = "module_loader", window = "2.0.0" },
+  { package = "memory", window = "1.1.0" },
+  { package = "logging", window = "1.1.0" }
+]
